@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Auxl from '../Auxl/Auxl';
 import classes from './Layout.css';
@@ -22,17 +23,28 @@ class Layout extends Component {
     
     render() {
         return (
-            <Auxl>
-                <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler}/>
-                <SideDrawer
-                    open={this.state.showSidedrawer}
-                    closed={this.sideDrawerClosedHandler} />
-                <main className={classes.Content}>
-                    {this.props.children}
-                </main>
-            </Auxl>
+          <Auxl>
+            <Toolbar
+              drawerToggleClicked={this.sideDrawerToggleHandler}
+              isAuth={this.props.isAuthenticated}
+            />
+
+            <SideDrawer
+              isAuth={this.props.isAuthenticated}
+              open={this.state.showSidedrawer}
+              closed={this.sideDrawerClosedHandler}
+            />
+
+            <main className={classes.Content}>{this.props.children}</main>
+          </Auxl>
         );
     }
 } 
 
-export default Layout;
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.auth.token !== null
+    };
+};
+
+export default connect(mapStateToProps)(Layout);

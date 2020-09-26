@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import Auxl from '../../../hoc/Auxl/Auxl'
-//  import { object } from 'prop-types';
 import Button from '../../UI/Button/Button'
 
 class OrderSummary extends Component {
